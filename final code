@@ -1,0 +1,126 @@
+#include<iostream>
+#include<conio.h>
+using namespace std;
+
+bool gameover; //status of the game
+
+ const int wall_width=30;
+ const int wall_height=30;
+ int snake_head_x,snake_head_y;
+ int egg_x,egg_y;
+ int score;
+ enum direction
+ {
+    STOP=0,
+     LEFT,
+     RIGHT,
+     UP,
+     DOWN
+ };
+ direction dir;
+void setup()
+{
+    gameover=false;
+    //dir=Stop;
+    snake_head_x=10,snake_head_y=10;
+    egg_x=rand()%wall_width;
+    egg_y=rand()%wall_height;
+    score=0;
+}
+void draw()
+{
+    system("cls");
+    cout<<"LEFT : s"<<"\n";
+    cout<<"RIGHT : w "<<"\n";
+    cout<<"UP : d"<<"\n";
+    cout<<"DOWN : a"<<"\n";
+    for(int i=0;i<wall_height;i++)
+    {
+        for(int j=0;j<wall_width;j++)
+        {
+            if(i==0||i==wall_height-1)      //print the top and bottom boundary
+                cout<<"*";
+            else if(j==0||j==wall_width-1)  //print the intermediate boundaries
+                cout<<"*";
+            else
+            {
+                if(i==egg_x && j== egg_y)         //print the egg
+                cout<<"O";
+                else if(i==snake_head_x&&j==snake_head_y)    //print the snake
+                cout<<"@";
+                else
+                     cout<<" ";
+            }
+        }
+        cout<<"\n";     //next line of boundary
+    }
+
+    cout<<"Score = "<<score<<"\n";
+}
+void input()
+{
+    if(_kbhit())
+    {
+        switch(_getch())
+        {
+        case 'a':
+            dir=LEFT;
+            break;
+        case 'd':
+            dir=RIGHT;
+            break;
+        case 'w':
+            dir=UP;
+            break;
+        case 's':
+            dir=DOWN;
+            break;
+        case 'x':
+            gameover=true;
+        }
+    }
+
+}
+void logic()
+{
+    switch(dir)
+    {
+        case LEFT:
+            snake_head_x++;
+        break;
+        case RIGHT:
+            snake_head_x--;
+        break;
+        case UP:
+            snake_head_y++;
+        break;
+        case DOWN:
+            snake_head_y--;
+        break;
+        default:
+        break;
+
+    }
+    if(snake_head_x==wall_width||snake_head_x==0||snake_head_y==wall_height||snake_head_y==0)
+        gameover=true;
+    if(snake_head_x==egg_x&&snake_head_y==egg_y)
+        {
+            score++;
+            egg_x=rand()%wall_width;
+            egg_y=rand()%wall_height;
+        }
+
+}
+int main()
+{
+    setup();
+    while(!gameover)
+    {
+        draw();
+        //cin.get();
+        input();
+        logic();
+    }
+    return 0;
+
+}
