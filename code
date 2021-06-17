@@ -1,0 +1,54 @@
+//snake egg game
+#include<bits/stdc++.h>
+
+using namespace std;
+int main()
+{
+ int x_f_limit=25, y_f_limit=25,x_i_limit=0,y_i_limit=0;    //start and end  cordinate of window
+ int s_x_index=10,s_y_index=10;     //initial coordinate of snake
+ int t_x_index=15,t_y_index=20;     //target egg coordiante
+
+
+ cout<<"Your Boundary index is ( "<<x_f_limit<<","<<y_f_limit<<" )"<<"\n";
+ cout<<"Your start index is ( "<<s_x_index<<","<<s_y_index<<" )"<<"\n";
+ cout<<"Your target is ( "<<t_x_index<<","<<t_y_index<<" )"<<"\n";
+
+ //cout<<"Start your move \n";
+cout<<"L : left \nR : right \nU : up \nD :down \n";
+char move;
+while(s_x_index<=x_f_limit && s_y_index<=y_f_limit)
+{
+    cin>>move;
+switch(move)
+{
+case 'L':
+    s_x_index++;
+    break;
+case 'R':
+    s_x_index--;
+    break;
+case 'U':
+    s_y_index++;
+    break;
+case 'D':
+    s_y_index--;
+    break;
+default:
+    cout<<"Not a valid move \n";
+}
+cout<<"Your current position is ( "<<s_x_index<<","<<s_y_index<<" )"<<"\n";
+if(s_x_index==t_x_index&&s_y_index==t_y_index)
+    {
+        cout<<"Target Achieved \n";
+        break;
+    }
+if(s_x_index==x_f_limit||s_y_index==y_f_limit)
+    {
+        cout<<"You got hit with the wall \n";
+        break;
+    }
+
+}
+     return 0;
+}
+
